@@ -1,23 +1,23 @@
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import AboutSection from './components/AboutSection';
-import ExperienceSection from './components/ExperienceSection';
-import CaseStudySection from './components/CaseStudySection';
-import SkillsSection from './components/SkillsSection';
-import CredentialsSection from './components/CredentialsSection';
-import Footer from './components/Footer';
+import Nav from "@/components/Nav";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Experience from "@/components/Experience";
+import CaseStudy from "@/components/CaseStudy";
+import Skills from "@/components/Skills";
+import Credentials from "@/components/Credentials";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <main id="top">
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <CaseStudySection />
-        <SkillsSection />
-        <CredentialsSection />
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <CaseStudy />
+        <Skills />
+        <Credentials />
         <Footer />
       </main>
     </>

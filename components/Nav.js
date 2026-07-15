@@ -1,14 +1,11 @@
-import portfolioContent from '../data/portfolioContent.json';
+import { navLinks } from "@/data/portfolioContent";
 
-export default function Header() {
-  const { navLinks } = portfolioContent;
-
+export default function Nav() {
   return (
     <header>
       <nav className="wrap">
         <a href="#top" className="brand">
-          <span className="dot"></span>
-          Vignesh E
+          <span className="dot"></span>Vignesh E
         </a>
         <div className="navlinks">
           {navLinks.map((link) => (
