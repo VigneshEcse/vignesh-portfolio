@@ -1,5 +1,5 @@
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
+import { GlobalStyle } from "@/components/styled";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -25,7 +25,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata = {
   title: "Vignesh E — React.js, Next.js & Appian Developer",
   description:
-    "Vignesh E — Associate Consultant, React.js/Next.js developer and Appian Certified Associate Developer. Frontend, low-code, and systems integration.",
+    "Vignesh E — Senior Associate Consultant, React.js/Next.js developer and Appian Certified Associate Developer. Frontend, low-code, and systems integration.",
 };
 
 export default function RootLayout({ children }) {
@@ -34,7 +34,10 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <GlobalStyle />
+        {children}
+      </body>
     </html>
   );
 }

@@ -2,6 +2,24 @@
 
 import { useEffect, useRef } from "react";
 import { heroContent } from "@/data/portfolioContent";
+import {
+  Accent,
+  Button,
+  ConnectorSvg,
+  Diagram,
+  DiagramLabel,
+  Eyebrow,
+  Headline,
+  HeroActions,
+  HeroSection,
+  NodeBox,
+  NodeTitle,
+  NodeValue,
+  Nodes,
+  PrimaryButton,
+  Subtext,
+  Wrap,
+} from "@/components/styled";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -19,20 +37,18 @@ export default function Hero() {
       if (nodeEls.length < 2) return;
 
       const cRect = container.getBoundingClientRect();
-      let paths = "";
+      const firstNode = nodeEls[0].getBoundingClientRect();
+      const lastNode = nodeEls[nodeEls.length - 1].getBoundingClientRect();
+      const centerY = firstNode.top + firstNode.height / 2 - cRect.top - 34;
+      const startX = firstNode.left + firstNode.width / 2 - cRect.left - 20;
+      const endX = lastNode.left + lastNode.width / 2 - cRect.left - 20;
+      const svgWidth = cRect.width - 40;
+      const svgHeight = cRect.height - 60;
 
-      for (let i = 0; i < nodeEls.length - 1; i++) {
-        const a = nodeEls[i].getBoundingClientRect();
-        const b = nodeEls[i + 1].getBoundingClientRect();
-        const x1 = a.right - cRect.left - 20;
-        const y1 = a.top + a.height / 2 - cRect.top - 34;
-        const x2 = b.left - cRect.left - 20;
-        const y2 = b.top + b.height / 2 - cRect.top - 34;
-        paths += `<path d="M ${x1} ${y1} H ${x2}" />`;
-      }
-
-      svg.setAttribute("viewBox", `0 0 ${cRect.width - 40} ${cRect.height - 60}`);
-      svg.innerHTML = paths;
+      svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+      svg.setAttribute("width", `${svgWidth}`);
+      svg.setAttribute("height", `${svgHeight}`);
+      svg.innerHTML = `<path d="M ${startX} ${centerY} H ${endX}" />`;
     }
 
     drawConnectors();
@@ -45,44 +61,51 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero" id="top">
-      <div className="wrap">
-        <div className="eyebrow">{heroContent.eyebrow}</div>
-        <h1 className="headline">
-          {heroContent.headline} <span className="accent">{heroContent.accentText}</span>
-        </h1>
-        <p className="sub">{heroContent.description}</p>
-        <div className="hero-ctas">
-          <a href={heroContent.primaryCta.href} className="btn primary">
-            {heroContent.primaryCta.label}
-          </a>
-          <a href={`${basePath}${heroContent.secondaryCta.href}`} className="btn">
-            {heroContent.secondaryCta.label}
-          </a>
-        </div>
+    <HeroSection id="top">
+      <Wrap>
+        <Eyebrow>{heroContent.eyebrow}</Eyebrow>
+        <Headline>
+          {heroContent.headline} <Accent>{heroContent.accentText}</Accent>
+        </Headline>
+        <Subtext>{heroContent.description}</Subtext>
+        <HeroActions>
+          <PrimaryButton href={heroContent.primaryCta.href}>{heroContent.primaryCta.label}</PrimaryButton>
+          <Button href={`${basePath}${heroContent.secondaryCta.href}`}>{heroContent.secondaryCta.label}</Button>
+        </HeroActions>
 
-        <div className="diagram" ref={diagramRef}>
-          <span className="diagram-label">// current stack — telecom platform</span>
-          <svg
-            ref={svgRef}
-            className="connector-svg"
-            viewBox="0 0 1000 100"
-            preserveAspectRatio="none"
-          ></svg>
-          <div className="nodes">
+        <Diagram ref={diagramRef}>
+          <DiagramLabel>// current stack — telecom platform</DiagramLabel>
+          <ConnectorSvg ref={svgRef} viewBox="0 0 1000 100" preserveAspectRatio="none"></ConnectorSvg>
+          <Nodes>
             {heroContent.nodes.map((node, i) => (
-              <div
+              <NodeBox
                 key={node.v}
-                className={`node${node.customer ? " customer" : ""}`}
+                className={node.customer ? "customer" : ""}
                 style={{ animationDelay: `${0.05 + i * 0.1}s` }}
               >
-                <div className="k">{node.k}</div>
-                <div className="v">{node.v}</div>
-              </div>
+                <NodeTitle>{node.k}</NodeTitle>
+                <NodeValue>{node.v}</NodeValue>
+              </NodeBox>
             ))}
-          </div>
-        </div>
-      </div>
-    </section>
+          </Nodes>
+        </Diagram>
+         <Diagram ref={diagramRef}>
+          <DiagramLabel>// Appian Plugin Development</DiagramLabel>
+          <ConnectorSvg ref={svgRef} viewBox="0 0 1000 100" preserveAspectRatio="none"></ConnectorSvg>
+          <Nodes>
+            {heroContent.appianNodes.map((node, i) => (
+              <NodeBox
+                key={node.v}
+                className={node.customer ? "customer" : ""}
+                style={{ animationDelay: `${0.05 + i * 0.1}s` }}
+              >
+                <NodeTitle>{node.k}</NodeTitle>
+                <NodeValue>{node.v}</NodeValue>
+              </NodeBox>
+            ))}
+          </Nodes>
+        </Diagram>
+      </Wrap>
+    </HeroSection>
   );
 }

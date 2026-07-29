@@ -14,7 +14,7 @@ components/
   Hero.js          — the animated connector diagram (client component)
   About.js
   Experience.js    — edit the ROLES array to update jobs
-  CaseStudy.js
+  ProblemToProduct.js
   Skills.js        — edit the GROUPS array to update skills
   Credentials.js   — edit CERTS / EDUCATION
   Footer.js
