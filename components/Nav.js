@@ -1,23 +1,22 @@
 import { navLinks } from "@/data/portfolioContent";
+import { Brand, BrandDot, Button, Header, NavLinks, NavWrap, PrimaryButton } from "@/components/styled";
 
 export default function Nav() {
   return (
-    <header>
-      <nav className="wrap">
-        <a href="#top" className="brand">
-          <span className="dot"></span>Vignesh E
-        </a>
-        <div className="navlinks">
+    <Header>
+      <NavWrap>
+        <Brand href="#top">
+          <BrandDot />Vignesh E
+        </Brand>
+        <NavLinks>
           {navLinks.map((link) => (
             <a key={link.href} href={link.href}>
               {link.label}
             </a>
           ))}
-        </div>
-        <a href="#contact" className="btn primary">
-          Get in touch
-        </a>
-      </nav>
-    </header>
+        </NavLinks>
+        <PrimaryButton href="#contact">Get in touch</PrimaryButton>
+      </NavWrap>
+    </Header>
   );
 }
